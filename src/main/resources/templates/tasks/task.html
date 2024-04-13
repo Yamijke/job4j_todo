@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Todo List</title>
@@ -18,34 +18,36 @@
 
              <ul class="nav nav-tabs">
                 <li class="nav-item">
-                     <a class="nav-link active" aria-current="page" href="#">All</a>
+                     <a class="nav-link active" aria-current="page" th:href="@{/tasks/task}">All</a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" href="#">Active</a>
+                     <a class="nav-link" th:href="@{/tasks/active}">Active</a>
                  </li>
                  <li class="nav-item">
-                      <a class="nav-link" href="#">Completed</a>
+                      <a class="nav-link" th:href="@{/tasks/completed}">Completed</a>
                  </li>
              </ul>
 
              <table class="table">
                  <thead>
                     <tr>
-                      <th scope="col">No</th>
-                       <th scope="col">Task</th>
-                       <th scope="col">Date</th>
-                       <th scope="col">Status</th>
-                       <th scope="col"></th>
+                        <th scope="col" class="w-10">No</th>
+                        <th scope="col" class="w-30">Task</th>
+                        <th scope="col" class="w-20">Date</th>
+                        <th scope="col" class="w-20">Status</th>
+                        <th scope="col" class="w-10"></th>
+                        <th scope="col" class="w-10"></th>
                    </tr>
                </thead>
                <tbody>
-                <tr>
-                     <th scope="row">1</th>
-                     <td>Buy groceries for next week</td>
-                     <td>Today</td>
-                     <td>Done</td>
-                     <td> <button type="button" class="btn btn-danger">Delete</button></td>
-                 </tr>
+               <tr th:each="task: ${tasks}">
+                   <td th:text="${task.id}"></td>
+                   <td th:text="${task.title}"></td>
+                   <td th:text="${#temporals.format(task.creationDate, 'dd-MM-yyyy')}"></td>
+                   <td th:text="${task.done ? 'Done' : 'Pending'}"></td>
+                   <td><button type="button" class="btn btn-danger">Delete</button></td>
+                   <td><button type="button" class="btn btn-success">Done</button></td>
+               </tr>
                </tbody>
             </table>
         </div>
