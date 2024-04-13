@@ -31,6 +31,7 @@ public class SimpleTaskRepository implements TasksRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return task;
     }
@@ -108,7 +109,45 @@ public class SimpleTaskRepository implements TasksRepository {
         Session session = sf.openSession();
         try {
             session.beginTransaction();
-            List<Task> rsl = session.createQuery("from Tasks order by id", Task.class).list();
+            List<Task> rsl = session.createQuery("from Task order by id", Task.class).list();
+            session.getTransaction().commit();
+            return rsl;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        return new ArrayList<>();
+    }
+
+    /**
+     * Список заданий по статусу.
+     *
+     * @return список выполненных заданий.
+     */
+    @Override
+    public List<Task> findAllPendingTasks() {
+        Session session = sf.openSession();
+        try {
+            session.beginTransaction();
+            List<Task> rsl = session.createQuery("from Task where done = false order by id", Task.class).list();
+            session.getTransaction().commit();
+            return rsl;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        return new ArrayList<>();
+    }
+
+    /**
+     * Список заданий по статусу.
+     *
+     * @return список выполненных заданий.
+     */
+    @Override
+    public List<Task> findAllCompletedTasks() {
+        Session session = sf.openSession();
+        try {
+            session.beginTransaction();
+            List<Task> rsl = session.createQuery("from Task where done = true order by id", Task.class).list();
             session.getTransaction().commit();
             return rsl;
         } catch (Exception e) {

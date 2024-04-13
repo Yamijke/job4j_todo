@@ -14,6 +14,7 @@ public class Task {
     private int id;
     private String title;
     private String description;
-    LocalDateTime creationDate;
+    @Column(name = "created")
+    LocalDateTime creationDate = LocalDateTime.now();
     private boolean done;
 }
