@@ -66,9 +66,12 @@ public class SimpleTaskRepository implements TasksRepository {
         Session session = sf.openSession();
         try {
             session.beginTransaction();
-            session.createQuery("update Task set description = :fDescription, created = :fCreated where id = :fId")
-                    .setParameter("fDescription", "new description")
+            session.createQuery("update Task set title = :fTitle, description = :fDescription, done = :fDone, created = :fCreated where id = :fId")
+                    .setParameter("fTitle", task.getTitle())
+                    .setParameter("fDescription", task.getDescription())
+                    .setParameter("fDone", task.isDone())
                     .setParameter("fCreated", Timestamp.valueOf(task.getCreationDate()))
+                    .setParameter("fId", task.getId())
                     .executeUpdate();
             session.getTransaction().commit();
             return true;
@@ -88,7 +91,7 @@ public class SimpleTaskRepository implements TasksRepository {
         Session session = sf.openSession();
         try {
             session.beginTransaction();
-            Optional<Task> rsl = session.createQuery("from Tasks where id = :ftaskId", Task.class)
+            Optional<Task> rsl = session.createQuery("from Task where id = :ftaskId", Task.class)
                     .setParameter("ftaskId", id)
                     .uniqueResultOptional();
             session.getTransaction().commit();
@@ -154,5 +157,27 @@ public class SimpleTaskRepository implements TasksRepository {
             session.getTransaction().rollback();
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * Обновить в базе задание с "в процессе" на "выполнено".
+     *
+     * @param task задание.
+     */
+    @Override
+    public boolean completeTask(Task task) {
+        Session session = sf.openSession();
+        try {
+            session.beginTransaction();
+            session.createQuery("update Task set done = :fDone where id = :fId")
+                    .setParameter("fDone", true)
+                    .setParameter("fId", task.getId())
+                    .executeUpdate();
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        return false;
     }
 }

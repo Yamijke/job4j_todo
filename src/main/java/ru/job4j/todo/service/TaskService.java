@@ -20,4 +20,6 @@ public interface TaskService {
     List<Task> findAllPendingTasks();
 
     List<Task> findAllCompletedTasks();
+
+    boolean completeTask(Task task);
 }

@@ -47,4 +47,9 @@ public class SimpleTaskService implements TaskService {
     public List<Task> findAllCompletedTasks() {
         return tasksRepository.findAllCompletedTasks();
     }
+
+    @Override
+    public boolean completeTask(Task task) {
+        return tasksRepository.completeTask(task);
+    }
 }
