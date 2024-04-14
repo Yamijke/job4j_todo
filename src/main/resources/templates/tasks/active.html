@@ -42,10 +42,10 @@
                     <tbody>
                     <tr th:each="task: ${tasks}">
                         <td th:text="${task.id}"></td>
-                        <td th:text="${task.title}"></td>
+                        <td><a th:text="${task.title}" th:href="@{/tasks/task/{id}(id=${task.id})}"></a></td>
                         <td th:text="${#temporals.format(task.creationDate, 'dd-MM-yyyy')}"></td>
                         <td th:text="'Pending'"></td>
-                        <td><button type="button" class="btn btn-danger">Delete</button></td>
+                        <td><a class="btn btn-danger w-100" th:href="@{/tasks/task/delete/{id}(id=${task.id})}">Delete</a></td>
                         <td><button type="button" class="btn btn-success">Done</button></td>
                     </tr>
                     </tbody>
