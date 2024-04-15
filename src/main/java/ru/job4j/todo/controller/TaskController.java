@@ -53,7 +53,7 @@ public class TaskController {
             return "errors/404";
         }
         model.addAttribute("task", taskOptional.get());
-        return "tasks/taskDescription";   //проверить
+        return "tasks/taskDescription";
     }
 
     @PostMapping("/task/update")
