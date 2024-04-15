@@ -34,7 +34,7 @@ public class TaskController {
         return "tasks/completed";
     }
 
-    @PostMapping("/task")
+    @PostMapping("/task/create")
     public String createNewTask(@ModelAttribute Task task, Model model) {
         try {
             simpleTaskService.save(task);
