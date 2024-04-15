@@ -47,7 +47,7 @@ public class SimpleTaskRepository implements TasksRepository {
         try {
             session.beginTransaction();
             session.createQuery(
-                    "delete Task where id = :fId")
+                            "delete Task where id = :fId")
                     .setParameter("fId", id)
                     .executeUpdate();
             session.getTransaction().commit();

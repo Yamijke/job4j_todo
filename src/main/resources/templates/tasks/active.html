@@ -46,7 +46,7 @@
                         <td th:text="${#temporals.format(task.creationDate, 'dd-MM-yyyy')}"></td>
                         <td th:text="'Pending'"></td>
                         <td><a class="btn btn-danger w-100" th:href="@{/tasks/task/delete/{id}(id=${task.id})}">Delete</a></td>
-                        <td><button type="button" class="btn btn-success">Done</button></td>
+                        <td><a class="btn btn-success w-100" th:href="@{/tasks/task/complete/{id}(id=${task.id})}">Done</a></td>
                     </tr>
                     </tbody>
                 </table>
