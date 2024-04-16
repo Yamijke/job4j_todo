@@ -42,18 +42,20 @@ public class SimpleTaskRepository implements TasksRepository {
      * @param id ID
      */
     @Override
-    public void deleteById(int id) {
+    public boolean deleteById(int id) {
         Session session = sf.openSession();
         try {
             session.beginTransaction();
-            session.createQuery(
+            var query = session.createQuery(
                             "delete Task where id = :fId")
-                    .setParameter("fId", id)
-                    .executeUpdate();
+                    .setParameter("fId", id);
+            int rsl = query.executeUpdate();
             session.getTransaction().commit();
+            return rsl > 0;
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
+        return false;
     }
 
     /**
@@ -66,15 +68,15 @@ public class SimpleTaskRepository implements TasksRepository {
         Session session = sf.openSession();
         try {
             session.beginTransaction();
-            session.createQuery("update Task set title = :fTitle, description = :fDescription, done = :fDone, created = :fCreated where id = :fId")
+            var query = session.createQuery("update Task set title = :fTitle, description = :fDescription, done = :fDone, created = :fCreated where id = :fId")
                     .setParameter("fTitle", task.getTitle())
                     .setParameter("fDescription", task.getDescription())
                     .setParameter("fDone", task.isDone())
                     .setParameter("fCreated", Timestamp.valueOf(task.getCreationDate()))
-                    .setParameter("fId", task.getId())
-                    .executeUpdate();
+                    .setParameter("fId", task.getId());
+            int affectedRows = query.executeUpdate();
             session.getTransaction().commit();
-            return true;
+            return affectedRows > 0;
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
@@ -169,12 +171,12 @@ public class SimpleTaskRepository implements TasksRepository {
         Session session = sf.openSession();
         try {
             session.beginTransaction();
-            session.createQuery("update Task set done = :fDone where id = :fId")
+            var query = session.createQuery("update Task set done = :fDone where id = :fId")
                     .setParameter("fDone", true)
-                    .setParameter("fId", task.getId())
-                    .executeUpdate();
+                    .setParameter("fId", task.getId());
+            int affectedRows = query.executeUpdate();
             session.getTransaction().commit();
-            return true;
+            return affectedRows > 0;
         } catch (Exception e) {
             session.getTransaction().rollback();
         }

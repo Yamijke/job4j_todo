@@ -30,5 +30,5 @@ view in tabs such as: all / active / completed.
 **Screen of the only completed tasks**
 ![](files/Done.png)
 
-**Screen of the detailed description of the job and its modification**
+**Screen of the detailed description of the task and its modification**
 ![](files/ChangeTheTask.png)

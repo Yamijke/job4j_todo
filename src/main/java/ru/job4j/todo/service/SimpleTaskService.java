@@ -19,8 +19,8 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public void deleteById(int id) {
-        tasksRepository.deleteById(id);
+    public boolean deleteById(int id) {
+        return tasksRepository.deleteById(id);
     }
 
     @Override

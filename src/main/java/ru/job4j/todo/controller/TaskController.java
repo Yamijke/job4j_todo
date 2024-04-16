@@ -36,13 +36,8 @@ public class TaskController {
 
     @PostMapping("/task/create")
     public String createNewTask(@ModelAttribute Task task, Model model) {
-        try {
-            simpleTaskService.save(task);
-            return "redirect:/tasks/task";
-        } catch (Exception e) {
-            model.addAttribute("message", e.getMessage());
-            return "errors/404";
-        }
+        simpleTaskService.save(task);
+        return "redirect:/tasks/task";
     }
 
     @GetMapping("/task/{id}")
@@ -68,23 +63,13 @@ public class TaskController {
 
     @GetMapping("/task/delete/{id}")
     public String delete(Model model, @PathVariable int id) {
-        try {
-            simpleTaskService.deleteById(id);
-            return "redirect:/tasks/task";
-        } catch (Exception e) {
-            model.addAttribute("message", "Ошибка: " + e.getMessage());
-            return "errors/404";
-        }
+        simpleTaskService.deleteById(id);
+        return "redirect:/tasks/task";
     }
 
     @GetMapping("/task/complete/{id}")
     public String completeTask(Model model, @ModelAttribute Task task) {
-        try {
-            simpleTaskService.completeTask(task);
-            return "redirect:/tasks/task";
-        } catch (Exception e) {
-            model.addAttribute("message", "Ошибка: " + e.getMessage());
-            return "errors/404";
-        }
+        simpleTaskService.completeTask(task);
+        return "redirect:/tasks/task";
     }
 }
