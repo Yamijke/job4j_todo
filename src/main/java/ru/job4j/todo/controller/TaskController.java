@@ -43,7 +43,7 @@ public class TaskController {
     public String getById(Model model, @PathVariable int id) {
         var taskOptional = taskService.findById(id);
         if (taskOptional.isEmpty()) {
-            model.addAttribute("message", "Задание с указанным идентификатором не найдено");
+            model.addAttribute("message", "Task with the specified identifier not found");
             return "errors/404";
         }
         model.addAttribute("task", taskOptional.get());
@@ -54,7 +54,7 @@ public class TaskController {
     public String update(@ModelAttribute Task task, Model model) {
         var isUpdated = taskService.update(task);
         if (!isUpdated) {
-            model.addAttribute("message", "Задание с указанным идентификатором не найдено");
+            model.addAttribute("message", "Task with the specified identifier not found");
             return "errors/404";
         }
         return "redirect:/tasks/task";
@@ -64,7 +64,7 @@ public class TaskController {
     public String delete(Model model, @PathVariable int id) {
         var isDeleted = taskService.deleteById(id);
         if (!isDeleted) {
-            model.addAttribute("message", "Не удалось удалить задание");
+            model.addAttribute("message", "Failed to delete the task");
             return "errors/404";
         }
         return "redirect:/tasks/task";
@@ -74,7 +74,7 @@ public class TaskController {
     public String completeTask(Model model, @ModelAttribute Task task) {
         var isUpdated = taskService.completeTask(task);
         if (!isUpdated) {
-            model.addAttribute("message", "Не удалось завершить задание");
+            model.addAttribute("message", "Failed to complete the task");
             return "errors/404";
         }
         return "redirect:/tasks/task";

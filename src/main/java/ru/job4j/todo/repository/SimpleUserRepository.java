@@ -34,7 +34,7 @@ public class SimpleUserRepository implements UserRepository {
             return Optional.of(user);
         } catch (Exception e) {
             session.getTransaction().rollback();
-            LOGGER.error("Пользователь с такими данными уже существует" + e);
+            LOGGER.error("A user with such login already exists" + e);
         }
         return Optional.empty();
     }
