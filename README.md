@@ -2,7 +2,8 @@ This web application is a simple version of Todo list.
 User can add new tasks, delete and mark them as completed. 
 User is unlimited in adding new tasks.
 This app stores tasks in database and you can see all kinds of tasks on the main 
-view in tabs such as: all / active / completed. 
+view in tabs such as: all / active / completed.
+User can use todo as a guest or being logged in after signing up.
 
 **Tech Stack:**
 + Java: JDK 17 for application, JDK 21 for the environment
@@ -32,3 +33,15 @@ view in tabs such as: all / active / completed.
 
 **Screen of the detailed description of the task and its modification**
 ![](files/ChangeTheTask.png)
+
+**Screen when the user working as a guest**
+![](files/Guest.png)
+
+**Screen when the user logged in**
+![](files/Logged.png)
+
+**Screen of the registration page**
+![](files/Registration.png)
+
+**Screen of the LogIn page**
+![](files/LogIn.png)

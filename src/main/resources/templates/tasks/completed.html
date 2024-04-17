@@ -8,6 +8,16 @@
 </head>
 <body>
 <div class="container py-5 h-100">
+    <div class="d-flex">
+        <div class="d-flex" th:if="${user.name == 'Guest'}">
+            <a class="btn btn-outline-primary w-10;" th:href="@{/users/register}">Register</a>
+            <a class="btn btn-outline-primary ms-2  w-10" th:href="@{/users/login}">Login</a>
+        </div>
+        <div th:if="${user.name != 'Guest'}" class="d-flex">
+            <a class="btn btn-outline-primary w-10" href="#" th:text="${user.name}"></a>
+            <a class="btn btn-outline-danger ms-2 w-10" th:href="@{/users/logout}">Logout</a>
+        </div>
+    </div>
     <div class="card">
         <div class="card-body p-4">
             <div class="container mt-5">
@@ -45,7 +55,8 @@
                         <td><a th:text="${task.title}" th:href="@{/tasks/task/{id}(id=${task.id})}"></a></td>
                         <td th:text="${#temporals.format(task.creationDate, 'dd-MM-yyyy')}"></td>
                         <td th:text="'Done'"></td>
-                        <td><a class="btn btn-danger w-100" th:href="@{/tasks/task/delete/{id}(id=${task.id})}">Delete</a></td>
+                        <td><a class="btn btn-danger w-100"
+                               th:href="@{/tasks/task/delete/{id}(id=${task.id})}">Delete</a></td>
                     </tr>
                     </tbody>
                 </table>
