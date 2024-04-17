@@ -62,13 +62,21 @@ public class TaskController {
 
     @GetMapping("/task/delete/{id}")
     public String delete(Model model, @PathVariable int id) {
-        taskService.deleteById(id);
+        var isDeleted = taskService.deleteById(id);
+        if (!isDeleted) {
+            model.addAttribute("message", "Не удалось удалить задание");
+            return "errors/404";
+        }
         return "redirect:/tasks/task";
     }
 
     @GetMapping("/task/complete/{id}")
     public String completeTask(Model model, @ModelAttribute Task task) {
-        taskService.completeTask(task);
+        var isUpdated = taskService.completeTask(task);
+        if (!isUpdated) {
+            model.addAttribute("message", "Не удалось завершить задание");
+            return "errors/404";
+        }
         return "redirect:/tasks/task";
     }
 }
