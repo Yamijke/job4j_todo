@@ -1,4 +1,4 @@
-package ru.job4j.todo.repository;
+package ru.job4j.todo.repository.user;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
@@ -35,6 +35,8 @@ public class SimpleUserRepository implements UserRepository {
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOGGER.error("A user with such login already exists" + e);
+        } finally {
+            session.close();
         }
         return Optional.empty();
     }
@@ -58,6 +60,8 @@ public class SimpleUserRepository implements UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return result;
     }
@@ -77,6 +81,8 @@ public class SimpleUserRepository implements UserRepository {
             return rsl;
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return new ArrayList<>();
     }
@@ -98,6 +104,8 @@ public class SimpleUserRepository implements UserRepository {
             return affectedRows > 0;
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return false;
     }

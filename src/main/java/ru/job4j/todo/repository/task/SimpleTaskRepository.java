@@ -1,4 +1,4 @@
-package ru.job4j.todo.repository;
+package ru.job4j.todo.repository.task;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
@@ -32,6 +32,8 @@ public class SimpleTaskRepository implements TasksRepository {
         } catch (Exception e) {
             session.getTransaction().rollback();
             throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            session.close();
         }
         return task;
     }
@@ -54,6 +56,8 @@ public class SimpleTaskRepository implements TasksRepository {
             return rsl > 0;
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return false;
     }
@@ -79,6 +83,8 @@ public class SimpleTaskRepository implements TasksRepository {
             return affectedRows > 0;
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return false;
     }
@@ -100,6 +106,8 @@ public class SimpleTaskRepository implements TasksRepository {
             return rsl;
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return Optional.empty();
     }
@@ -119,6 +127,8 @@ public class SimpleTaskRepository implements TasksRepository {
             return rsl;
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return new ArrayList<>();
     }
@@ -138,6 +148,8 @@ public class SimpleTaskRepository implements TasksRepository {
             return rsl;
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return new ArrayList<>();
     }
@@ -157,6 +169,8 @@ public class SimpleTaskRepository implements TasksRepository {
             return rsl;
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return new ArrayList<>();
     }
@@ -179,6 +193,8 @@ public class SimpleTaskRepository implements TasksRepository {
             return affectedRows > 0;
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return false;
     }

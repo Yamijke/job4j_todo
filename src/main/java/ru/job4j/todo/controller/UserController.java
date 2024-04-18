@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.job4j.todo.model.User;
-import ru.job4j.todo.service.UserService;
+import ru.job4j.todo.service.user.UserService;
 
 import javax.annotation.concurrent.ThreadSafe;
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +32,8 @@ public class UserController {
     public String register(Model model, @ModelAttribute User user) {
         var savedUser = userService.save(user);
         if (savedUser.isEmpty()) {
-            model.addAttribute("message", "User with such login already exists");
-            return "errors/404";
+            model.addAttribute("error", "User with such login already exists");
+            return "users/register";
         }
         return "redirect:/tasks/task";
     }

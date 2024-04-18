@@ -1,9 +1,9 @@
-package ru.job4j.todo.service;
+package ru.job4j.todo.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.User;
-import ru.job4j.todo.repository.UserRepository;
+import ru.job4j.todo.repository.user.UserRepository;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Collection;

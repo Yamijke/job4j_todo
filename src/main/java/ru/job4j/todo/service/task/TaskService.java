@@ -1,10 +1,11 @@
-package ru.job4j.todo.repository;
+package ru.job4j.todo.service.task;
+
 import ru.job4j.todo.model.Task;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface TasksRepository {
+public interface TaskService {
 
     Task save(Task task);
 
