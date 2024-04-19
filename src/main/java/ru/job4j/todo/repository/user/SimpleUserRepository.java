@@ -28,8 +28,8 @@ public class SimpleUserRepository implements UserRepository {
             return Optional.of(user);
         } catch (Exception e) {
             LOGGER.error("A user with such login already exists" + e);
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 
     /**
@@ -63,17 +63,15 @@ public class SimpleUserRepository implements UserRepository {
      */
     @Override
     public boolean deleteById(int userId) {
-        boolean rsl;
         try {
             crudRepository.run(
                     "delete User where id = :fId",
                     Map.of("fId", userId)
             );
-            rsl = true;
+            return true;
         } catch (Exception e) {
             LOGGER.error("Cant delete the User" + e);
-            rsl = false;
         }
-        return rsl;
+        return false;
     }
 }

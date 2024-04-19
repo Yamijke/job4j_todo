@@ -36,18 +36,16 @@ public class SimpleTaskRepository implements TasksRepository {
      */
     @Override
     public boolean deleteById(int id) {
-        boolean rsl;
         try {
             crudRepository.run(
                     "delete Task where id = :fId",
                     Map.of("fId", id)
             );
-            rsl = true;
+            return true;
         } catch (Exception e) {
             LOGGER.error("Cant delete the task" + e);
-            rsl = false;
         }
-        return rsl;
+        return false;
     }
 
     /**
@@ -57,15 +55,13 @@ public class SimpleTaskRepository implements TasksRepository {
      */
     @Override
     public boolean update(Task task) {
-        boolean rsl;
         try {
             crudRepository.run(session -> session.merge(task));
-            rsl = true;
+            return true;
         } catch (Exception e) {
             LOGGER.error("Cant update the task" + e);
-            rsl = false;
         }
-        return rsl;
+        return false;
     }
 
     /**
@@ -118,16 +114,14 @@ public class SimpleTaskRepository implements TasksRepository {
      */
     @Override
     public boolean completeTask(Task task) {
-        boolean rsl;
         try {
             crudRepository.run("update Task set done = :fDone where id = :fId",
                     Map.of("fDone", true,
                             "fId", task.getId()));
-            rsl = true;
+            return true;
         } catch (Exception e) {
             LOGGER.error("Cant complete the task" + e);
-            rsl = false;
         }
-        return rsl;
+        return false;
     }
 }
