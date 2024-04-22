@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.model.Task;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.task.TaskService;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/tasks")
@@ -33,7 +36,13 @@ public class TaskController {
     }
 
     @PostMapping("/task/create")
-    public String createNewTask(@ModelAttribute Task task, Model model) {
+    public String createNewTask(@ModelAttribute Task task, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/users/login";
+        }
+        model.addAttribute("user", user);
+        task.setUser(user);
         taskService.save(task);
         return "redirect:/tasks/task";
     }
@@ -50,7 +59,9 @@ public class TaskController {
     }
 
     @PostMapping("/task/update")
-    public String update(@ModelAttribute Task task, Model model) {
+    public String update(@ModelAttribute Task task, Model model, @SessionAttribute User user) {
+        model.addAttribute("user", user);
+        task.setUser(user);
         var isUpdated = taskService.update(task);
         if (!isUpdated) {
             model.addAttribute("message", "Task with the specified identifier not found");
