@@ -36,11 +36,7 @@ public class TaskController {
     }
 
     @PostMapping("/task/create")
-    public String createNewTask(@ModelAttribute Task task, Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/users/login";
-        }
+    public String createNewTask(@ModelAttribute Task task, Model model, @SessionAttribute User user) {
         model.addAttribute("user", user);
         task.setUser(user);
         taskService.save(task);
@@ -59,11 +55,7 @@ public class TaskController {
     }
 
     @PostMapping("/task/update")
-    public String update(@ModelAttribute Task task, Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/users/login";
-        }
+    public String update(@ModelAttribute Task task, Model model, @SessionAttribute User user) {
         model.addAttribute("user", user);
         task.setUser(user);
         var isUpdated = taskService.update(task);
@@ -77,9 +69,6 @@ public class TaskController {
     @GetMapping("/task/delete/{id}")
     public String delete(Model model, @PathVariable int id, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/users/login";
-        }
         var isDeleted = taskService.deleteById(id);
         if (!isDeleted) {
             model.addAttribute("message", "Failed to delete the task");
@@ -91,9 +80,6 @@ public class TaskController {
     @GetMapping("/task/complete/{id}")
     public String completeTask(Model model, @ModelAttribute Task task, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/users/login";
-        }
         var isUpdated = taskService.completeTask(task);
         if (!isUpdated) {
             model.addAttribute("message", "Failed to complete the task");
