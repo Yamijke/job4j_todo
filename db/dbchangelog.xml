@@ -8,5 +8,8 @@
     <include file="scripts/001_ddl_create_tasks_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/002_ddl_create_todo_user_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/003_ddl_change_create_tasks_table.sql" relativeToChangelogFile="true"/>
-
+    <include file="scripts/004_ddl_create_priorities_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/005_ddl_update_priorities_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/006_ddl_update_tasks_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/007_ddl_update_tasks_table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

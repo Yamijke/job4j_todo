@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.model.User;
+import ru.job4j.todo.service.priority.PriorityService;
 import ru.job4j.todo.service.task.TaskService;
 
 import javax.servlet.http.HttpSession;
@@ -15,23 +16,27 @@ import javax.servlet.http.HttpSession;
 @AllArgsConstructor
 public class TaskController {
     private final TaskService taskService;
+    private final PriorityService priorityService;
 
     @GetMapping("/task")
     public String getAll(Model model) {
         model.addAttribute("tasks", taskService.findAll());
         model.addAttribute("task", new Task());
+        model.addAttribute("priorities", priorityService.findAll());
         return "tasks/task";
     }
 
     @GetMapping("/active")
     public String getPendingTasks(Model model) {
         model.addAttribute("tasks", taskService.findAllPendingTasks());
+        model.addAttribute("priorities", priorityService.findAll());
         return "tasks/active";
     }
 
     @GetMapping("/completed")
     public String getCompletedTasks(Model model) {
         model.addAttribute("tasks", taskService.findAllCompletedTasks());
+        model.addAttribute("priorities", priorityService.findAll());
         return "tasks/completed";
     }
 

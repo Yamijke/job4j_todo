@@ -44,6 +44,7 @@
                         <th scope="col" class="w-10">No</th>
                         <th scope="col" class="w-30">Task</th>
                         <th scope="col" class="w-20">Date</th>
+                        <th scope="col" class="w-10">Priority</th>
                         <th scope="col" class="w-20">Status</th>
                         <th scope="col" class="w-20">User</th>
                         <th scope="col" class="w-10"></th>
@@ -55,6 +56,7 @@
                         <td th:text="${task.id}"></td>
                         <td><a th:text="${task.title}" th:href="@{/tasks/task/{id}(id=${task.id})}"></a></td>
                         <td th:text="${#temporals.format(task.creationDate, 'dd-MM-yyyy')}"></td>
+                        <td th:text="${task.priority.name}"></td>
                         <td th:text="'Done'"></td>
                         <td th:text="${task.user.name}"></td>
                         <td><a class="btn btn-danger w-100"

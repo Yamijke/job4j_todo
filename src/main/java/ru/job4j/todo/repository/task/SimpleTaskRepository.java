@@ -84,7 +84,7 @@ public class SimpleTaskRepository implements TasksRepository {
      */
     @Override
     public List<Task> findAll() {
-        return crudRepository.query("from Task order by id", Task.class);
+        return crudRepository.query("FROM Task f JOIN FETCH f.priority order by f.priority ASC", Task.class);
     }
 
     /**
@@ -94,7 +94,7 @@ public class SimpleTaskRepository implements TasksRepository {
      */
     @Override
     public List<Task> findAllPendingTasks() {
-        return crudRepository.query("from Task where done = false order by id", Task.class);
+        return crudRepository.query("from Task t JOIN FETCH t.priority where t.done = false order by t.id", Task.class);
     }
 
     /**
@@ -104,7 +104,7 @@ public class SimpleTaskRepository implements TasksRepository {
      */
     @Override
     public List<Task> findAllCompletedTasks() {
-        return crudRepository.query("from Task where done = true order by id", Task.class);
+        return crudRepository.query("from Task t JOIN FETCH t.priority where t.done = true order by t.id", Task.class);
     }
 
     /**
