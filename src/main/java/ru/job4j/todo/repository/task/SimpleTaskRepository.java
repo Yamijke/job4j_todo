@@ -84,10 +84,10 @@ public class SimpleTaskRepository implements TasksRepository {
      */
     @Override
     public List<Task> findAll() {
-        return crudRepository.query("select distinct t FROM Task t " +
-                "JOIN FETCH t.priority p " +
-                "left JOIN FETCH t.participates c " +
-                "order by p.position ASC", Task.class);
+        return crudRepository.query("select distinct t FROM Task t "
+                + "JOIN FETCH t.priority p "
+                + "left JOIN FETCH t.participates c "
+                + "order by p.position ASC", Task.class);
     }
 
     /**
@@ -97,10 +97,10 @@ public class SimpleTaskRepository implements TasksRepository {
      */
     @Override
     public List<Task> findAllPendingTasks() {
-        return crudRepository.query("select distinct t from Task t " +
-                "JOIN FETCH t.priority p " +
-                "left JOIN FETCH t.participates c " +
-                "where t.done = false order by p.position ASC", Task.class);
+        return crudRepository.query("select distinct t from Task t "
+                + "JOIN FETCH t.priority p "
+                + "left JOIN FETCH t.participates c "
+                + "where t.done = false order by p.position ASC", Task.class);
     }
 
     /**
@@ -110,10 +110,10 @@ public class SimpleTaskRepository implements TasksRepository {
      */
     @Override
     public List<Task> findAllCompletedTasks() {
-        return crudRepository.query("select distinct t from Task t " +
-                "JOIN FETCH t.priority p " +
-                "left JOIN FETCH t.participates c " +
-                "where t.done = true order by p.position ASC", Task.class);
+        return crudRepository.query("select distinct t from Task t "
+                + "JOIN FETCH t.priority p "
+                + "left JOIN FETCH t.participates c "
+                + "where t.done = true order by p.position ASC", Task.class);
     }
 
     /**
